@@ -1,0 +1,12 @@
+
+.idea/
+
+.venv/
+
+__pycache__/
+*.pyc
+
+#ignore the tesnsors
+tensors/
+*.pkl
+*.pt
