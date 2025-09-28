@@ -1,12 +1,10 @@
 # Volatility Forecasting with GARCH, LSTM, and Hybrid Models
 
 ## Project Objective
-This project compares three different models for volatility forecasting:
+This project compares three different models for volatility forecasting (realized volatility):
 - GARCH models (more specifically GJR-GARCH)
 - LSTM, long short term memory a type of RNN
 - and finally a GARCH-informed LSTM (GARCH predictions is fed in as a feature)
-
-all the models are plotted against 
 
 ---
 
