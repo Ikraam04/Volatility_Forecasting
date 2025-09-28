@@ -13,11 +13,11 @@ GARCH_LSTM_CSV = f"{RESULTS}GARCH_LSTM_predictions.csv"
 #load all our predictions
 garch_df = pd.read_csv(GARCH_CSV, parse_dates=True, index_col='Date')
 lstm_2f_df = pd.read_csv(LSTM_CSV, parse_dates=True, index_col='Date')
-hybrid_lstm_df = pd.read_csv(GARCH_LSTM_CSV, parse_dates=True, index_col='Date')
+garch_inf_lstm = pd.read_csv(GARCH_LSTM_CSV, parse_dates=True, index_col='Date')
 #merge em
 comparison_df = garch_df.copy()
 comparison_df = comparison_df.join(lstm_2f_df['lstm_prediction'])
-comparison_df = comparison_df.join(hybrid_lstm_df['lstm_garch_prediction'])
+comparison_df = comparison_df.join(garch_inf_lstm['lstm_garch_prediction'])
 
 #for safe keeping
 comparison_df.dropna(inplace=True)
@@ -66,16 +66,17 @@ plt.plot(comparison_df.index, comparison_df['realized_volatility'],
 
 # Plot the forecast models
 plt.plot(comparison_df.index, comparison_df['garch_prediction'],
-         label='GARCH Forecast', color='purple', linestyle=':', linewidth=1.5)
+         label='GARCH', color='purple', linestyle=':', linewidth=1.5)
 plt.plot(comparison_df.index, comparison_df['lstm_prediction'],
-         label='LSTM (2-Feature) Forecast', color='orange', linestyle='-.', linewidth=1.5)
+         label='LSTM', color='orange', linestyle='-.', linewidth=1.5)
 plt.plot(comparison_df.index, comparison_df['lstm_garch_prediction'],
-         label='Hybrid LSTM Forecast', color='green', linestyle='--', linewidth=1.5)
+         label='GARCH-inf LSTM', color='green', linestyle='--', linewidth=1.5)
 
-plt.title('Final Model Showdown: Volatility Forecasting', fontsize=16)
+plt.title('Model Comparison: Volatility Forecasting', fontsize=16)
 plt.xlabel('Date', fontsize=12)
 plt.ylabel('Annualized Volatility', fontsize=12)
 plt.legend(fontsize=11)
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.tight_layout()
+plt.savefig("comparison.png")
 plt.show()

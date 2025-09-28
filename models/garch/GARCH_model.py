@@ -28,7 +28,7 @@ print("\nGenerating dynamic forecasts with the optimized GJR-GARCH(1,1) skew-t m
 
 # hyper hyper parameters
 REFIT_FREQUENCY = 4  # refit every 4 days (instead of everyday)
-MIN_WINDOW_SIZE = 252 * 5  # use 5 years of data for each prediction
+MIN_WINDOW_SIZE = 252 * 3  # use 5 years of data for each prediction
 
 predictions = []
 current_fitted_model = None
