@@ -24,11 +24,11 @@ This project compares three different models for volatility forecasting (realize
 The final comparison of all three models on the test set yielded the following results.
 
 
-| Model              | RMSE   | MAE    | Correlation | 
-| ------------------ |--------|--------|-------------| 
-| Optimized GARCH    | 0.0300 | 0.0189 | 0.9332      | 
-| LSTM (2-Feature)   | 0.0331 | 0.0190 | 0.9226      | 
-| Hybrid LSTM        | 0.0271 | 0.0156 | 0.9603      | 
+| Model               | RMSE   | MAE    | Correlation | 
+|---------------------|--------|--------|-------------| 
+| Optimized GARCH     | 0.0300 | 0.0189 | 0.9332      | 
+| LSTM (2-Feature)    | 0.0331 | 0.0190 | 0.9226      | 
+| Garch-Informed LSTM | 0.0271 | 0.0156 | 0.9603      | 
 
 *a more detailed breakdown can be seen by running the individual python file of the model - 
 above is just the results of
