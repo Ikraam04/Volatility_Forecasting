@@ -11,7 +11,6 @@ split_date = '2023-01-01'
 #some hyper - hyper params
 REFIT_FREQUENCY = 1  # How often to refit the GARCH model (in days)
 WINDOW_SIZE = 252 * 5  # Use a 3-year rolling window of data for forecasts
-# ----------------------
 
 #split
 df = pd.read_csv(RAW_DATA, parse_dates=True, index_col='Date')
@@ -19,7 +18,7 @@ train_df = df[df.index < split_date]
 test_df = df[df.index >= split_date]
 
 #generate predictions for the training data
-print("Generating in-sample GARCH predictions for the training period...")
+print("generating in-sample GARCH predictions (training)")
 train_returns = train_df['log_return'] * 100
 model_train = arch_model(train_returns, vol='Garch', p=1, o=1, q=1, dist='skewt')
 results_train = model_train.fit(disp='off')
@@ -30,7 +29,7 @@ in_sample_predictions.name = 'garch_prediction'
 print("In-sample prediction generation complete.")
 
 #run a GARCH model to get data for the testing period
-print("\nGenerating out-of-sample GARCH predictions for the testing period...")
+print("generating out-of-sample GARCH predictions (test)")
 test_predictions_list = []
 current_fitted_model = None
 
@@ -65,6 +64,5 @@ hybrid_df = pd.DataFrame({
 hybrid_df.dropna(inplace=True)
 hybrid_df.to_csv(OUTPUT_CSV)
 
-print(f"\nHybrid dataset successfully created and saved to '{OUTPUT_CSV}'")
-print("\nFinal DataFrame head:")
+print(f"saved to {OUTPUT_CSV}")
 print(hybrid_df.head())

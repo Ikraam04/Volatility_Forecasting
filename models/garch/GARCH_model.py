@@ -2,11 +2,9 @@ import pandas as pd
 import numpy as np
 from arch import arch_model
 import matplotlib.pyplot as plt
-from sklearn.metrics import r2_score
 from tqdm import tqdm
 import warnings
 import matplotlib
-import os
 matplotlib.use("TkAgg")
 warnings.filterwarnings('ignore')
 
@@ -21,10 +19,9 @@ split_date = '2023-01-01'
 train_df = df[df.index < split_date]
 test_df = df[df.index >= split_date]
 
-print(f"Training set size: {len(train_df)}")
-print(f"Test set size: {len(test_df)}")
+print(f"training set size: {len(train_df)}")
+print(f"test set size: {len(test_df)}")
 
-print("\nGenerating dynamic forecasts with the optimized GJR-GARCH(1,1) skew-t model...")
 
 # hyper hyper parameters
 REFIT_FREQUENCY = 4  # refit every 4 days (instead of everyday)
@@ -47,7 +44,7 @@ for i in tqdm(range(len(test_df))):
     volatility_forecast = np.sqrt(variance_forecast) * np.sqrt(252) / 100
     predictions.append(volatility_forecast)
 
-print("Forecasting complete.")
+print("forecasting complete.")
 
 garch_prediction_series = pd.Series(predictions, index=test_df.index, name='garch_prediction')
 
@@ -61,7 +58,6 @@ predictions_df = pd.DataFrame({
 rmse = np.sqrt(np.mean((predictions_df['garch_prediction'] - predictions_df['realized_volatility']) ** 2))
 mae = np.mean(np.abs(predictions_df['garch_prediction'] - predictions_df['realized_volatility']))
 correlation = predictions_df['realized_volatility'].corr(predictions_df['garch_prediction'])
-r_squared = r2_score(predictions_df['realized_volatility'], predictions_df['garch_prediction'])
 
 
 # Plot the results
@@ -124,18 +120,14 @@ plt.show()
 
 #print metrics
 
-print("\n" + "=" * 60)
-print("OPTIMIZED GARCH MODEL PERFORMANCE")
-print("=" * 60)
-print(f"Model Specification: GJR-GARCH(1,1) with Skewed-t Distribution")
-print(f"Parameters: vol='Garch', p=1, q=1, o=1, dist='skewt'")
-print(f"Refit Frequency: Every {REFIT_FREQUENCY} days")
-print(f"Minimum Window: {MIN_WINDOW_SIZE} observations ({MIN_WINDOW_SIZE / 252:.1f} years)")
-print("-" * 60)
+print(f"model Specification: GJR-GARCH(1,1) with Skewed-t Distribution")
+print(f"parameters: vol='Garch', p=1, q=1, o=1, dist='skewt'")
+print(f"refit Frequency: Every {REFIT_FREQUENCY} days")
+print(f"minimum Window: {MIN_WINDOW_SIZE} observations ({MIN_WINDOW_SIZE / 252:.1f} years)")
+
 print(f"RMSE: {rmse:.4f}")
 print(f"MAE: {mae:.4f}")
 print(f"Correlation: {correlation:.4f}")
-print(f"R-Squared: {r_squared:.4f}")
 print("=" * 60)
 
 #save

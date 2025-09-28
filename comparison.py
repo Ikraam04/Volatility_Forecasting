@@ -22,8 +22,6 @@ comparison_df = comparison_df.join(garch_inf_lstm['lstm_garch_prediction'])
 #for safe keeping
 comparison_df.dropna(inplace=True)
 
-print("--- Final Aligned Data for Comparison ---")
-print(comparison_df.head())
 
 #re-calc metrics
 models = {
@@ -53,7 +51,7 @@ for model_name, pred_col in models.items():
 
 #print the dict
 metrics_df = pd.DataFrame(metrics_results)
-print("\n--- Final Model Comparison ---")
+print("final metrics: ")
 print(metrics_df.to_string(index=False))
 
 #plotting

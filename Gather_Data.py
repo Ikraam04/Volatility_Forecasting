@@ -10,9 +10,9 @@ OUTPUT_CSV = f'data/raw/spy_volatility_data.csv'
 
 
 #download historical data
-print(f"Downloading SPY data from {START_DATE}...")
+print(f"downloading SPY data from {START_DATE}...")
 df = yf.download("SPY", start=START_DATE, auto_adjust=True, multi_level_index= False)
-print("Download complete.")
+print("download complete.")
 
 
 # calculate log returns - they are better for time-series analysis
@@ -24,14 +24,13 @@ df['log_return'] = np.log(df['Close'] / df['Close'].shift(1))
 df['realized_volatility'] = df['log_return'].rolling(window=VOLATILITY_WINDOW).std() * np.sqrt(252)
 
 
-print(f"Original data length: {len(df)}")
+print(f"original data length: {len(df)}")
 df.dropna(inplace=True)
-print(f"Data length after dropping NaNs: {len(df)}")
+print(f"data length after dropping NaNs: {len(df)}")
 
 #save
 df.to_csv(OUTPUT_CSV)
-print(f"\nData successfully cleaned and saved to '{OUTPUT_CSV}'")
-print("\nFinal DataFrame head:")
+print(f"saved to '{OUTPUT_CSV}'")
 print(df.head())
 
 

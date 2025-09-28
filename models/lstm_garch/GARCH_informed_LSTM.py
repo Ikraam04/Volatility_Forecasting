@@ -24,13 +24,13 @@ RAW_DATA = '../../data/raw/spy_volatility_data.csv'
 
 #load data
 
-print("Loading pre-processed 3-feature data...")
+print("loading features")
 X_train = torch.load(f"{INPUT_DIR}/X_train_GARCH_LSTM.pt")
 y_train = torch.load(f"{INPUT_DIR}/Y_train_GARCH_LSTM.pt")
 X_test = torch.load(f"{INPUT_DIR}/X_test_GARCH_LSTM.pt")
 y_test = torch.load(f"{INPUT_DIR}/Y_test_GARCH_LSTM.pt")
 scaler = joblib.load(f"{INPUT_DIR}/scalar_LSTM_GARCH.pkl")
-print("Data loaded successfully.")
+print("loaded")
 
 #define our LSTM
 
@@ -56,7 +56,7 @@ optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
 #Train the Model
 
-print("\nStarting 3-feature hybrid model training...")
+print("starting training")
 for epoch in range(NUM_EPOCHS):
     model.train()
     outputs = model(X_train)
@@ -66,7 +66,7 @@ for epoch in range(NUM_EPOCHS):
     optimizer.step()
     if (epoch+1) % 10 == 0:
         print(f'Epoch [{epoch+1}/{NUM_EPOCHS}], Loss: {loss.item():.6f}')
-print("Training complete.")
+print("training complete.")
 
 #get results
 model.eval()
@@ -156,11 +156,11 @@ mae = np.mean(np.abs(predictions_df['lstm_garch_prediction'] - predictions_df['r
 correlation = predictions_df['realized_volatility'].corr(predictions_df['lstm_garch_prediction'])
 r_squared = r2_score(predictions_df['realized_volatility'], predictions_df['lstm_garch_prediction'])
 
-print("\n--- Hybrid LSTM Model Performance ---")
+print("Performance:\n")
 print(f"RMSE: {rmse:.4f}")
 print(f"MAE: {mae:.4f}")
-print(f"Correlation: {correlation:.4f}")
-print(f"R-Squared: {r_squared:.4f}")
+print(f"correlation: {correlation:.4f}")
+
 
 predictions_df.to_csv(OUTPUT_CSV)
-print(f"\nHybrid LSTM predictions saved to '{OUTPUT_CSV}'")
+print(f"lstm_garch saved to '{OUTPUT_CSV}'")

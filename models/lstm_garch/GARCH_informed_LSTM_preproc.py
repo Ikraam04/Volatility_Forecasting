@@ -35,7 +35,7 @@ test_data_scaled = scaler.transform(test_df)
 
 
 joblib.dump(scaler, f"{OUTPUT_DIR}/scalar_LSTM_GARCH.pkl")
-print("\n3-feature scaler saved to 'scaler_3feature.pkl'")
+print(f"saved to {OUTPUT_DIR}/scalar_LSTM_GARCH.pkl")
 
 #get sequences (LSTM's only understand 3d data)
 
@@ -54,8 +54,8 @@ X_test, y_test = create_sequences(test_data_scaled, SEQUENCE_LENGTH, TARGET_COLU
 y_train = y_train.reshape(-1, 1)
 y_test = y_test.reshape(-1, 1)
 
-print(f"\nTraining sequences shape (X, y): {X_train.shape}, {y_train.shape}")
-print(f"Testing sequences shape (X, y): {X_test.shape}, {y_test.shape}")
+print(f"training shape (X, y): {X_train.shape}, {y_train.shape}")
+print(f"Testing shape (X, y): {X_test.shape}, {y_test.shape}")
 
 #conv to tensors and save
 
@@ -68,4 +68,4 @@ torch.save(X_train, f"{OUTPUT_DIR}/X_train_GARCH_LSTM.pt")
 torch.save(y_train, f"{OUTPUT_DIR}/Y_train_GARCH_LSTM.pt")
 torch.save(X_test, f"{OUTPUT_DIR}/X_test_GARCH_LSTM.pt")
 torch.save(y_test, f"{OUTPUT_DIR}/Y_test_GARCH_LSTM.pt")
-print("\nPrepared 3-feature data tensors have been saved.")
+print(f"tensors saved to {OUTPUT_DIR}")
