@@ -40,20 +40,24 @@ comparison.py*
 ![Final Plot](forecast_comparison.png)
 
 
-### risk (VaR)
+### risk (VaR & CVaR)
 
 for VaR the resuls were as follows:
 
-| Model             | Breaches (out of 639) | Breach Rate | Expected Breach Rate  |
-|-------------------|------------------------|-------------|-----------------------|
-| GARCH             | 29                     | 4.54%       | 5.00%                 |
-| LSTM (2-Feature)  | 47                     | 7.36%       | 5.00%                 |
-| LSTM-inf-GARCH    | 43                     | 6.73%       | 5.00%                 |
+| Model             | Breaches (out of 639) | Breach Rate | Expected Rate | CVaR (Expected loss upon breach) |
+|-------------------|------------------------|-------------|---------------|----------------------------------|
+| GARCH             | 29                     | 4.54%       | 5.00%         | $19,904.63                       |
+| LSTM (2-Feature)  | 47                     | 7.36%       | 5.00%         | $18,147.53                       |
+| LSTM-inf-GARCH    | 43                     | 6.73%       | 5.00%         | $18,657.95                       |
 
-Evidently, GARCH had the lowest breach rate, followed by the LSTM-informed GARCH and then the 2-feature LSTM. 
+Evidently, GARCH had the lowest breach rate, followed by the LSTM-informed GARCH and then the 2-feature LSTM.
+GARCH had the highest average loss upon breach (CVaR)
 
 
 ![VaR Comparison](VaR_daily_loss_comparison.png)
+
+
+
 
 *run the calculating_risk.py file to see these results*
 
@@ -63,7 +67,8 @@ while GARCH provides a good baseline, LSTM succeedes in learning non-linear patt
 as a feature it performs so much better
 
 The reason GARCH probably (well I think anyway) outperformed both LSTM's when it came to VaR was most likely because it was over-estimating
-volatility a bit (during the forecast) quite which led to a higher VaR and price never breached those high levels. 
+volatility a bit (during the forecast) quite which led to a higher VaR and price never breached those high levels. The reason it had the highest loss upon breach was
+probably because it wasn't weighed down by moderate losses, unlike the LSTM models (which would've brought down their averages)
 
 ---
 

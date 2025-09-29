@@ -79,6 +79,12 @@ plt.show()
 print("\nbacktesting:")
 expected_breach_rate = 1.0 - CONFIDENCE_LEVEL
 
+"""
+woah 2 for loops when it can 1 woahhhh, this isn't optimization, i want to keep it clear and concise
+"""
+
+
+#calc breaches, breach rate
 for model_name, pred_col in models.items():
     var_col_name = f"{model_name.split(' ')[0].lower()}_var"
     breaches = comparison_df[comparison_df['actual_loss'] > comparison_df[var_col_name]]
@@ -90,3 +96,20 @@ for model_name, pred_col in models.items():
     print(f"breaches: {num_breaches} out of {total_days} days")
     print(f"breach rate: {breach_rate:.2%}")
     print(f"expected rate: {expected_breach_rate:.2%}")
+
+#calc CVaR
+for model_name, pred_col in models.items():
+    var_col_name = f"{model_name.split(' ')[0].lower()}_var"
+
+    #find breaches
+    breaches = comparison_df[comparison_df['actual_loss'] > comparison_df[var_col_name]]
+
+    if len(breaches) > 0:
+        # calculate the average loss on each breach
+        cvar = breaches['actual_loss'].mean()
+        print(f"\nModel: {model_name}")
+        print(f"  Number of Breaches: {len(breaches)}")
+        print(f"  CVaR (Expected Shortfall): ${cvar:,.2f}")
+    else:
+        print(f"\nModel: {model_name}")
+        print("  No VaR breaches occurred.")
