@@ -5,6 +5,7 @@ This project compares three different models for volatility forecasting (realize
 - GARCH models (more specifically GJR-GARCH)
 - LSTM, long short term memory a type of RNN
 - and finally a GARCH-informed LSTM (GARCH predictions is fed in as a feature)
+- risk analysis with VaR (added 29/09/25)
 
 ---
 
@@ -21,7 +22,7 @@ This project compares three different models for volatility forecasting (realize
 
 ##  Results & Analysis
 
-# forecast
+### forecast
 
 The final comparison of all three models on the test set yielded the following results.
 
@@ -39,7 +40,7 @@ comparison.py*
 ![Final Plot](forecast_comparison.png)
 
 
-# risk (VaR)
+### risk (VaR)
 
 for VaR the resuls were as follows:
 
