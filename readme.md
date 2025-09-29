@@ -21,6 +21,8 @@ This project compares three different models for volatility forecasting (realize
 
 ##  Results & Analysis
 
+# forecast
+
 The final comparison of all three models on the test set yielded the following results.
 
 
@@ -36,10 +38,31 @@ comparison.py*
 
 ![Final Plot](forecast_comparison.png)
 
+
+# risk (VaR)
+
+for VaR the resuls were as follows:
+
+| Model             | Breaches (out of 639) | Breach Rate | Expected Breach Rate  |
+|-------------------|------------------------|-------------|-----------------------|
+| GARCH             | 29                     | 4.54%       | 5.00%                 |
+| LSTM (2-Feature)  | 47                     | 7.36%       | 5.00%                 |
+| LSTM-inf-GARCH    | 43                     | 6.73%       | 5.00%                 |
+
+Evidently, GARCH had the lowest breach rate, followed by the LSTM-informed GARCH and then the 2-feature LSTM. 
+
+
+![VaR Comparison](VaR_daily_loss_comparison.png)
+
+*run the calculating_risk.py file to see these results*
+
 ## Conclusion
 
 while GARCH provides a good baseline, LSTM succeedes in learning non-linear patters and when GARCH is fed in
-as a feature it performs so much better 
+as a feature it performs so much better
+
+The reason GARCH probably (well I think anyway) outperformed both LSTM's when it came to VaR was most likely because it was over-estimating
+volatility a bit (during the forecast) quite which led to a higher VaR and price never breached those high levels. 
 
 ---
 
@@ -49,3 +72,5 @@ as a feature it performs so much better
 - Experiment with more GARCH models
 - Improve debugging (they're all print statements lmao)
 - add notebooks under each model (explains ze math)
+- more VaR methods?
+- CVaR?
