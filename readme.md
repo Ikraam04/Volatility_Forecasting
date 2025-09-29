@@ -34,7 +34,7 @@ The final comparison of all three models on the test set yielded the following r
 above is just the results of
 comparison.py*
 
-![Final Plot](comparison.png)
+![Final Plot](forecast_comparison.png)
 
 ## Conclusion
 

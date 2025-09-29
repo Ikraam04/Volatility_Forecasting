@@ -62,7 +62,7 @@ plt.figure(figsize=(16, 8))
 plt.plot(comparison_df.index, comparison_df['realized_volatility'],
          label='Actual Volatility', color='blue', alpha=0.8, linewidth=2.5)
 
-# Plot the forecast models
+# plot the forecast models
 plt.plot(comparison_df.index, comparison_df['garch_prediction'],
          label='GARCH', color='purple', linestyle=':', linewidth=1.5)
 plt.plot(comparison_df.index, comparison_df['lstm_prediction'],
@@ -76,5 +76,5 @@ plt.ylabel('Annualized Volatility', fontsize=12)
 plt.legend(fontsize=11)
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.tight_layout()
-plt.savefig("comparison.png")
+plt.savefig("forecast_comparison.png")
 plt.show()
